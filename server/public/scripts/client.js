@@ -54,3 +54,17 @@ function getJokes() {
         })
         console.log('After making server request...');
 }
+
+function render(jokeList) {
+    $('#outputDiv').empty();
+
+    for (let item of jokeList) {
+        $('#outputDiv').append(`
+        <div class="joke">
+            <p>${item.jokesQuestion}</p>
+            <p>${item.punchLine}</p>
+            <p>${item.whoseJoke}</p>
+        </div>`)
+        console.log(`${item.jokesQuestion} by ${item.whoseJoke}`);
+    }
+}
