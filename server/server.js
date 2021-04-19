@@ -34,6 +34,22 @@ let jokes = [
   }
 ];
 
+// GET route to send back our jokes from /jokes
+app.get('/jokes', (req, res) => {
+  res.send(jokes);
+})
+
+// POST route to get a new quote from the client (browser)
+app.post('/jokes', (req, res) => {
+  let newJoke = req.body;
+  console.log('Got a new quote', newJoke);
+
+  //save the new joke
+  jokes.push(newJoke);
+  res.sendStatus(201);
+})
+
+
 // serve back static files
 app.use(express.static('server/public'));
 
