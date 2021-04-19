@@ -34,3 +34,23 @@ function addJoke() {
             alert('Sorry, could not add your joke. Try again.')
         })
 }
+
+function getJokes() {
+    $.ajax({
+        method: 'GET',
+        url: '/jokes'
+    })
+        .then(function(response){
+            console.log('Response from server', response);
+            for (let item of response) {
+                console.log(`${item.jokesQuestion} by ${item.whoseJoke}`);
+
+            }
+            render(response);
+        })
+        .catch(function(error){
+            console.log('Error from server', error);
+            alert('Sorry, could not get jokes. Try again.');
+        })
+        console.log('After making server request...');
+}
