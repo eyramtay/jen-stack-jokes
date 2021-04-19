@@ -11,12 +11,13 @@ function onReady() {
         event.preventDefault();
         addJoke();
     })
+    getJokes();
 }
 
 function addJoke() {
     let newJoke = {
         whoseJoke: $('#whoseJokeIn').val(),
-        jokesQuestion: $('#questionIn').val(),
+        jokeQuestion: $('#questionIn').val(),
         punchLine: $('#punchLineIn').val(),
     }
     console.log('Adding joke', newJoke);
@@ -28,11 +29,17 @@ function addJoke() {
     })
         .then(function(response){
             console.log('Added a joke');
+            getJokes();
         })
         .catch(function(error){
             console.log('Error from server', error);
             alert('Sorry, could not add your joke. Try again.')
         })
+
+    // clear inputs
+    $('#whoseJokeIn').val('');
+    $('#questionIn').val('');
+    $('#punchLineIn').val('');
 }
 
 function getJokes() {
@@ -43,7 +50,7 @@ function getJokes() {
         .then(function(response){
             console.log('Response from server', response);
             for (let item of response) {
-                console.log(`${item.jokesQuestion} by ${item.whoseJoke}`);
+                console.log(`${item.jokeQuestion} by ${item.whoseJoke}`);
 
             }
             render(response);
@@ -61,10 +68,10 @@ function render(jokeList) {
     for (let item of jokeList) {
         $('#outputDiv').append(`
         <div class="joke">
-            <p>${item.jokesQuestion}</p>
+            <p>${item.jokeQuestion}</p>
             <p>${item.punchLine}</p>
-            <p>${item.whoseJoke}</p>
-        </div>`)
-        console.log(`${item.jokesQuestion} by ${item.whoseJoke}`);
+            <p>- ${item.whoseJoke}</p>
+        </div><br>`)
+        console.log(`${item.jokeQuestion} by ${item.whoseJoke}`);
     }
 }
